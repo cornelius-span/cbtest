@@ -17,8 +17,9 @@ jobs:
             workspace
       - name: See if cache is working 2
         run: |
-          ls -a
+          ls -a workspace/
       - name: Dynamic Cargo check
         run: |
+          cd workspace
           cargo check
           cargo test
