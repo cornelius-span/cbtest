@@ -1,0 +1,24 @@
+name: unit-tests
+on: [push]
+jobs:
+  build-rust:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup build environment
+        run: |
+          sudo apt update --allow-releaseinfo-change -q
+          sudo apt install -y -qq cmake mosquitto librust-libdbus-sys-dev libudev-dev libudev1 clang libzmq3-dev libzmq5 libprotobuf-dev protobuf-compiler python3-protobuf libsystemd-dev
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MY_REPO_PAT }}
+          submodules: recursive
+      - name: Cache Rust
+        uses: Swatinem/rust-cache@v2
+      - name: See if cache is working 2
+        run: |
+          ls -a
+      - name: Dynamic Cargo check
+        run: |
+          cargo check
+          cargo test
