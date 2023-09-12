@@ -8,13 +8,13 @@ jobs:
         run: |
           sudo apt update --allow-releaseinfo-change -q
           sudo apt install -y -qq cmake mosquitto librust-libdbus-sys-dev libudev-dev libudev1 clang libzmq3-dev libzmq5 libprotobuf-dev protobuf-compiler python3-protobuf libsystemd-dev
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2
         with:
           workspaces: |
             workspace
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: See if cache is working 2
         run: |
           ls -a workspace/
